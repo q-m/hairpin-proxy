@@ -5,9 +5,6 @@ on:
       - 'master'
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
-    paths:
-      - 'hairpin-proxy-haproxy'
-      - '.github/workflows/container-build-haproxy.yml'
   pull_request:
     branches:
       - 'master'
