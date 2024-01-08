@@ -25,8 +25,8 @@ class HairpinProxyController
     @namespace= ENV.fetch('POD_NAMESPACE','hairpin-proxy')
     @coredns_port= ENV.fetch('COREDNS_PORT', '53')
 
-    @image='q-m/hairpin-proxy-haproxy'
-    @version=VERSION
+    @image= ENV.fetch('HAPROXY_IMAGE', 'ghcr.io/q-m/hairpin-proxy-haproxy')
+    @version= ENV.fetch('HAPROXY_VERSION', VERSION)
     @addr_to_proxy_svc = Hash.new { |hash,key| hash[key] = proxy_service_name(key) }
 
     STDOUT.sync = true
