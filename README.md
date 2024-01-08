@@ -9,7 +9,7 @@ If you've had problems with ingress-nginx, cert-manager, LetsEncrypt ACME HTTP01
 ## One-line install
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/compumike/hairpin-proxy/v0.2.1/deploy.yml
+kubectl apply -f https://raw.githubusercontent.com/q-m/hairpin-proxy/v0.4.0/deploy.yml
 ```
 
 If you're using [ingress-nginx](https://kubernetes.github.io/ingress-nginx/) and [cert-manager](https://github.com/jetstack/cert-manager), it will work out of the box. See detailed installation and testing instructions below.
@@ -74,23 +74,21 @@ The `dig` should show the external load balancer IP address. The first `curl` sh
 ### Step 1: Install hairpin-proxy in your Kubernetes cluster
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/compumike/hairpin-proxy/v0.2.1/deploy.yml
+kubectl apply -f https://raw.githubusercontent.com/q-m/hairpin-proxy/v0.4.0/deploy.yml
 ```
 
-If you're using `ingress-nginx`, this will work as-is.
+Note that this hairpin-proxy fork discovers ingress controllers and sets `TARGET_SERVER` automatically.
 
-However, if you using an ingress controller other than `ingress-nginx`, you must change the `TARGET_SERVER` environment variable passed to the `hairpin-proxy-haproxy` container. It defaults to `ingress-nginx-controller.ingress-nginx.svc.cluster.local`, which specifies the `ingress-nginx-controller` Service within the `ingress-nginx` namespace. You can change this by editing the `hairpin-proxy-haproxy` Deployment and specifiying an environment variable:
+Usually, CoreDNS will listen on port 53, but there are cases where listens on another port. In that case, set the environment variable `COREDNS_PORT` correspondingly.
 
 ```shell
 kubectl edit -n hairpin-proxy deployment hairpin-proxy-haproxy
 
 # Within spec.template.spec.containers[0], add something like:
 env:
-  - name: TARGET_SERVER
-    value: my-ingress-controller.my-ingress-controller-namespace.svc.cluster.local
+  - name: COREDNS_PORT
+    value: '8053'
 ```
-
-Usually, CoreDNS will listen on port 53, but there are cases where listens on another port. In that case, set the environment variable `COREDNS_PORT` correspondingly (in the same way as `TARGET_SERVER` above).
 
 ### Step 2: Confirm that your CoreDNS configuration was updated
 
@@ -133,5 +131,8 @@ To resolve this, we need to rewrite the DNS on the Node itself. The Node does no
 To install this DaemonSet:
 
 ```shell
-kubectl apply -f https://raw.githubusercontent.com/compumike/hairpin-proxy/v0.2.1/deploy-etchosts-daemonset.yml
+kubectl apply -f https://raw.githubusercontent.com/q-m/hairpin-proxy/v0.4.0/deploy-etchosts-daemonset.yml
 ```
+
+_untested with this fork_
+
