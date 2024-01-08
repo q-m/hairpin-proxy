@@ -88,6 +88,8 @@ env:
     value: my-ingress-controller.my-ingress-controller-namespace.svc.cluster.local
 ```
 
+Usually, CoreDNS will listen on port 53, but there are cases where listens on another port. In that case, set the environment variable `COREDNS_PORT` correspondingly (in the same way as `TARGET_SERVER` above).
+
 ### Step 2: Confirm that your CoreDNS configuration was updated
 
 ```shell

@@ -23,6 +23,7 @@ class HairpinProxyController
     @k8s = K8s::Client.autoconfig
     @ingresses= Hash.new
     @namespace= ENV.fetch('POD_NAMESPACE','hairpin-proxy')
+    @coredns_port= ENV.fetch('COREDNS_PORT', '53')
 
     @image='sumcumo/hairpin-proxy-haproxy' #'sumcumo/hairpin-proxy-haproxy'
     @version=VERSION
@@ -63,8 +64,8 @@ class HairpinProxyController
     rewrite_lines = hosts.map { |host,destination| "    rewrite name #{host} #{destination} #{COMMENT_LINE_SUFFIX}" }
 
     # Inject at the start of the main ".:53 { ... }" configuration block
-    main_server_line = cflines.index { |line| line.strip.start_with?(".:53 {") }
-    raise "Can't find main server line! '.:53 {' in Corefile" if main_server_line.nil?
+    main_server_line = cflines.index { |line| line.strip.start_with?(".:#{@coredns_port} {") }
+    raise "Can't find main server line! '.:#{@coredns_port} {' in Corefile" if main_server_line.nil?
     cflines.insert(main_server_line + 1, *rewrite_lines)
 
     cflines.join("\n")
