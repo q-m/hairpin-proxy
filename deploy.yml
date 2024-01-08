@@ -127,7 +127,7 @@ spec:
         runAsUser: 405
         runAsGroup: 65533
       containers:
-        - image: sumcumo/hairpin-proxy-controller:0.4.0
+        - image: ghcr.io/q-m/hairpin-proxy-controller:0.4.0
           name: main
           resources:
             requests:

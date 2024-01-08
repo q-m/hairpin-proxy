@@ -4,6 +4,8 @@ PROXY protocol support for internal-to-LoadBalancer traffic for Kubernetes Ingre
 
 If you've had problems with ingress-nginx, cert-manager, LetsEncrypt ACME HTTP01 self-check failures, and the PROXY protocol, read on.
 
+**Note** these instructions are for upstream, you'll need to adapt it for this fork, sorry. PR welcome.
+
 ## One-line install
 
 ```shell
