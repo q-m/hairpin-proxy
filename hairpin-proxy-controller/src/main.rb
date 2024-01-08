@@ -291,7 +291,7 @@ class HairpinProxyController
   end
 
   def proxy_service_name(address)
-    "proxy-#{address_digest(address)}.#{@namespace}.svc.cluster.local"
+    "hairpin-proxy-#{address_digest(address)}.#{@namespace}.svc.cluster.local"
   end
 
   def find_ingresses
