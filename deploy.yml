@@ -127,7 +127,7 @@ spec:
         runAsUser: 405
         runAsGroup: 65533
       containers:
-        - image: ghcr.io/q-m/hairpin-proxy-controller:0.5.1
+        - image: ghcr.io/q-m/hairpin-proxy-controller:0.5.2
           name: main
           resources:
             requests:
