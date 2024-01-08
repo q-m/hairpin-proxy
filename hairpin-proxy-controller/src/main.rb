@@ -134,7 +134,7 @@ class HairpinProxyController
         kind: 'Deployment',
         metadata:{
           namespace: @namespace,
-          name: "haproxy-#{enc_address}",
+          name: "hairpin-proxy-haproxy-#{enc_address}",
         }
       }))
 
@@ -155,7 +155,7 @@ class HairpinProxyController
         kind: 'Deployment',
         metadata:{
           namespace: @namespace,
-          name: "haproxy-#{enc_address}",
+          name: "hairpin-proxy-haproxy-#{enc_address}",
           labels: {
             'app.kubernetes.io/name' => "hairpin-proxy",
             'app.kubernetes.io/instance' => "haproxy-#{enc_address}",
@@ -219,7 +219,7 @@ class HairpinProxyController
         kind: 'Service',
         metadata: {
           namespace: @namespace,
-          name: "proxy-#{enc_address}",
+          name: "hairpin-proxy-#{enc_address}",
         },
       }))
 
@@ -237,7 +237,7 @@ class HairpinProxyController
         kind: 'Service',
         metadata: {
           namespace: @namespace,
-          name: "proxy-#{enc_address}",
+          name: "hairpin-proxy-#{enc_address}",
           labels: {
             'app.kubernetes.io/name' => "hairpin-proxy",
             'app.kubernetes.io/instance' => "haproxy-#{enc_address}",
