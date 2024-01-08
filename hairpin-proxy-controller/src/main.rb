@@ -7,7 +7,7 @@ require "optparse"
 require "socket"
 require "digest"
 
-VERSION = "0.5.0"
+VERSION = "0.5.1"
 
 class HairpinProxyController
   COMMENT_LINE_SUFFIX = "# Added by hairpin-proxy"
